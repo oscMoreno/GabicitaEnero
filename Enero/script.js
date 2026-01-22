@@ -28,11 +28,12 @@ function draw() {
     if (particles[i].finished()) particles.splice(i, 1);
   }
 
+  let baseSize = Math.min(width, height) / 6;
   push();
   translate(width / 2, height / 2);
-  let pulseSize = 150 + sin(pulse) * 10;
+  let pulseSize = baseSize + sin(pulse) * (baseSize / 15);
   pulse += 0.05;
-  
+
   fill("#ff1493");
   stroke(255, 150);
   strokeWeight(3);
@@ -42,9 +43,9 @@ function draw() {
   fill(255);
   noStroke();
   textAlign(CENTER);
-  textSize(width < 500 ? 35 : 55);
+  textSize(width < 500 ? 35 : Math.max(35, width / 26));
   textFont('Georgia');
-  text("Te amo Gaby", width / 2, height / 2 + 220);
+  text("Te amo Gaby", width / 2, height / 2 + baseSize + 20);
 }
 
 class FloatingHeart {
@@ -96,6 +97,10 @@ function drawHeartShape(x, y, size) {
     vertex(x + dx, y + dy);
   }
   endShape(CLOSE);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 function windowResized() { resizeCanvas(windowWidth, windowHeight); }
